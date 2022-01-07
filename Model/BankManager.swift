@@ -13,18 +13,18 @@ enum BankingTask: CaseIterable, CustomStringConvertible {
     var numberOfBankWindow: Int {
         switch self {
         case .deposit:
-            return 2
+            return 32
         case .loan:
-            return 1
+            return 32
         }
     }
     
     var processingTime: Double {
         switch self {
         case .deposit:
-            return 0.7
+            return 0.07
         case .loan:
-            return 1.1
+            return 0.01
         }
     }
     
@@ -44,6 +44,7 @@ final class BankManager {
     private var departments: Dictionary<BankingTask, Department>
     private var clientCount: Int
     private var duration: Double
+    private let numberSerial: DispatchQueue = DispatchQueue(label: "number")
     
     init() {
         self.clientQueue = .init()
@@ -55,7 +56,7 @@ final class BankManager {
         self.duration = 0
     }
     
-    func lineupClients(_ numberOfClients: Int = Int.random(in: 10...30)) {
+    func lineupClients(_ numberOfClients: Int = Int.random(in: 10...10)) {
         for number in 1...numberOfClients {
             clientQueue.enqueue(Client(waitingNumber: number))
         }
@@ -75,7 +76,7 @@ final class BankManager {
                 
                 let bankTeller = departments[bankingTask]!.assignBankTeller()!
                 bankTeller.serve(client) {
-                    clientCount += 1
+                        clientCount += 1
                 }
                 departments[bankingTask]?.setup(bankTeller)
             }
