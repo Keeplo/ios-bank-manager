@@ -73,7 +73,7 @@ mutating func clear() {
 
 추가 고민사항) `tail` 프로퍼티를 `weak` 키워드를 추가하는 것을 고민함
 </div></details>
-<details><summary>`함수명은 모호하면 안된다` / `함수는 하나의 기능만 동작한다` 의미를 좀 더 고민해보기</summary><div markdown="1">
+<details><summary> "함수명은 모호하면 안된다" / "함수는 하나의 기능만 동작한다" 의미를 좀 더 고민해보기</summary><div markdown="1">
 
 UnitTest의 Test Case를 성공케이스와 실패케이스로 나누어 기능/메서드 검증을 하는 과정에서 메서드의 성공과 실패라는 관점이 어떤 것이어야 하는 가에 대한 고민을 함
 
@@ -206,6 +206,9 @@ GCD를 계속 사용한다면 제어 용 스레드를 생성하고 해당 스레
 Node는 내부 `next`프로퍼티를 이용해서 다음 Node를 가리키는 특징때문에 해당 타입을 인스턴스 참조가 가능한 class 타입으로 구현함
 	
 <img width="682" alt="Screen Shot 2022-01-16 at 8 28 46 PM" src="https://user-images.githubusercontent.com/24707229/149658332-06b5135a-a1d9-4c21-b401-87116da612a9.png">
+	  
+	
+	  
 다음과 같이 해당 타입에 대한 프로퍼티는 private 접근제어가 필요한지 고민함
 
 get set 동작을 따로 구현하는 것에 대한 고민을 할때 해당 타입이 비즈니스 로직으로 중요한 Model이 아니라 Int/Double 타입처럼 Model 내부의 Data로 사용되는 타입이기 때문에 내부 프로퍼티에 직접 접근이 가능한 internal(default) 제어접근자로 결정함
