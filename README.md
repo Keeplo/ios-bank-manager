@@ -55,13 +55,11 @@ func test_성공케이스_링크드리스트의_clear을하면_노드의개수�
 ```
 
 `weak` 참조로 각 Node를 연결시킨 `dummyNodes` 포인터 배열을 이용해서 메모리해제 여부를 테스트함
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44c245dd-7a73-4b46-ad43-9dc86a8fd3b3/IMG_CE8AC305F722-1.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44c245dd-7a73-4b46-ad43-9dc86a8fd3b3/IMG_CE8AC305F722-1.jpeg)
-
+	
+![IMG_F491CDE2439A-1](https://user-images.githubusercontent.com/24707229/149658218-a9f06f18-a71b-40de-be5b-31b2628f6fd3.jpeg)
 UnitTest를 진행하던 중 마지막 Node가 해제 되지 않는 점을 발견
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d18417db-e5db-4e62-8e2e-547c443325eb/IMG_F491CDE2439A-1.jpeg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d18417db-e5db-4e62-8e2e-547c443325eb/IMG_F491CDE2439A-1.jpeg)
-
+![IMG_CE8AC305F722-1](https://user-images.githubusercontent.com/24707229/149658177-d3391e92-067e-4a2d-8c67-4911dbac9529.jpeg)
 마지막 노드를 가리키는 `tail` 프로퍼티가 strong 참조를 유지해서 해제되지 않는 점을 인지함
 
 ```swift
@@ -193,8 +191,10 @@ Xcode의 CPU Report 기능을 이용해서 스레드의 생성을 체크함
 
 기대 아이디어는 2개의 예금업무 스레드, 1개의 대출업무 스레드가 메인스레드와 별도로 추가되어 해당 태스크를 동작할꺼라고 예상함
 
+<img width="1031" alt="128197047-e464e30d-418f-40bf-896f-fe8df157806e" src="https://user-images.githubusercontent.com/24707229/149658285-4ca291b1-7437-424e-8e0c-528410ee7225.png">
 다음과 같이 3개 초과된 스레드가 생성하는 것을 인지하고 의도와 다른 동작에서 비동기처리 구현에 오류가 있음을 발견함
 
+<img width="874" alt="Screen Shot 2022-01-16 at 5 44 53 PM" src="https://user-images.githubusercontent.com/24707229/149658237-bad127c8-0144-41e5-86da-66924f7e843e.png">
 위 코드처럼 DispatchSemaphore는 하나의 태스크를 스레드로 처리하는걸 제한하기 보다는 스레드 추가는 이미 되고 해당 태스크가 동작가능한 갯수만 제한한다는 점을 깨달음
 
 때문에 DispatchQueue는 스레드의 갯수를 조절하는 기능이 없고 OperationQueue 기능이 있다는 개념적인 이야기를 이해함
@@ -204,7 +204,8 @@ GCD를 계속 사용한다면 제어 용 스레드를 생성하고 해당 스레
 <details><summary>Model 타입과 Data 타입 고민</summary><div markdown="1">
 
 Node는 내부 `next`프로퍼티를 이용해서 다음 Node를 가리키는 특징때문에 해당 타입을 인스턴스 참조가 가능한 class 타입으로 구현함
-
+	
+<img width="682" alt="Screen Shot 2022-01-16 at 8 28 46 PM" src="https://user-images.githubusercontent.com/24707229/149658332-06b5135a-a1d9-4c21-b401-87116da612a9.png">
 다음과 같이 해당 타입에 대한 프로퍼티는 private 접근제어가 필요한지 고민함
 
 get set 동작을 따로 구현하는 것에 대한 고민을 할때 해당 타입이 비즈니스 로직으로 중요한 Model이 아니라 Int/Double 타입처럼 Model 내부의 Data로 사용되는 타입이기 때문에 내부 프로퍼티에 직접 접근이 가능한 internal(default) 제어접근자로 결정함
